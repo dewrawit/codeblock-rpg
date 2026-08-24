@@ -2,11 +2,12 @@
 
 #include <string>
 #include <string_view>
+#include <iostream>
 
 class CodeBlock
 {
     public:
-    enum class Type { variable, number, action, condition };
+    enum class Type { variable, action, flow, modify };
 
     private:
     Type m_type{};
@@ -21,4 +22,10 @@ class CodeBlock
 
     Type getType() const { return m_type; }
     SV getDisplayText() const { return m_displayText; }
+
+    friend std::ostream& operator<<(std::ostream& out, const CodeBlock& cb)
+    {
+        out << "[ " << cb.m_displayText << " ]";
+        return out;
+    }
 };
