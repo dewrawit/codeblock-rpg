@@ -1,0 +1,26 @@
+Player:
+-hp
+-atk
+-vector of unique ptr of CodeBlock
+
+CodeBlock:
+-has 4 types: value (atk, hp, 4, etc.), action (attack, defend etc.), flow (if, loop), modifier
+-Is a Base class. Sub-blocks (the 4 types) will inherit
+-Should design so it's easy to create another block type
+
+CodeBlockPool:
+-store every type of code block and is able to hand any kind of block to the game easily
+
+GameState:
+-Player
+-Current Enemy (also a Player class)
+-handles running the code block, so each code block should have thier own version of execute()
+
+GameLoop
+-shows enemy code (random generated, so CodeBlockPool should be able to generate random block)
+-Player gets to assort thier ide code block (reordering thier vector) from random given pool each turn 
+-When ready, player click run -> GameState run the code of both player at same time
+-Repeat until someone wins
+
+
+
