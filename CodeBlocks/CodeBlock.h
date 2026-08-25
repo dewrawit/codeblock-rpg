@@ -27,7 +27,7 @@ class CodeBlock
 
 
     CodeBlock() = default;
-    ~CodeBlock() = default;
+    virtual ~CodeBlock() = default;
     CodeBlock(Type type, Rarity rarity, SV display) 
         : m_type{ type }
         , m_rarity{ rarity }
