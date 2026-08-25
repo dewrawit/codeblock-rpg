@@ -1,13 +1,13 @@
 #include "Player.h"
 #include "Game.h"
+#include <string_view>
 
 namespace Game
 {
-    Player createPlayer()
-    {
-        constexpr int playerHp { 100 };
-        constexpr int playerAtk { 10 };
+    using SV = std::string_view;
 
-        return Player{ "Player", playerHp, playerAtk };
+    Player createCharacter(SV name, int hp, int atk)
+    {
+        return Player{ name, hp, atk };
     }
 }

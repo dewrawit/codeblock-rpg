@@ -4,5 +4,7 @@ class Player;
 
 namespace Game
 {
-    Player createPlayer();
+    using SV = std::string_view;
+
+    Player createCharacter(SV name, int hp, int atk);
 }
