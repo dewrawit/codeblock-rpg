@@ -30,7 +30,7 @@ class Player
 
     int getHp() const { return m_hp; }
     int getAtk() const { return m_atk; }
-    SV getName() const { return m_name; }
+    const std::string& getName() const { return m_name; }
     bool isDefeated() const { return m_defeated; }
     void showStats() const 
     {

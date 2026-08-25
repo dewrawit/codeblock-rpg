@@ -14,7 +14,7 @@ class CodeBlockPool
     using SV = std::string_view;
 
     template <typename BlockType>
-    std::unique_ptr<BlockType> makeBlock(CodeBlock::Type t, CodeBlock::Rarity r, SV dis) const
+    std::unique_ptr<CodeBlock> makeBlock(CodeBlock::Type t, CodeBlock::Rarity r, SV dis) const
     {
         //Check if template has same type or derived from CodeBlock
         static_assert(std::is_base_of_v<CodeBlock,BlockType> && "Unrelated class in makeBlock");
@@ -29,7 +29,7 @@ class CodeBlockPool
         
     }
 
-    static CodeBlock generateRandomCodeBlock()
+    static std::unique_ptr<CodeBlock> generateRandomCodeBlock()
     {
 
     }

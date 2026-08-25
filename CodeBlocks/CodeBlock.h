@@ -4,7 +4,9 @@
 #include <string_view>
 #include <iostream>
 #include <functional>
-#include "../Context.h"
+
+class Context;
+class Player;
 
 class CodeBlock
 {
