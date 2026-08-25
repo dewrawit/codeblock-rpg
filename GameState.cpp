@@ -3,6 +3,7 @@
 #include "Context.h"
 #include "CharacterData.h"
 
+//must also be non const because moving player (changing owner) also counts as modify
 GameState::GameState(Player& player) 
     : m_player{ std::move(player) } //must move because player owns unique_ptr
     , m_context{ m_player }

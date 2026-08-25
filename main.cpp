@@ -12,7 +12,14 @@ int main()
     GameState gameState { player }; //player is moved into gameState, not copied
     //player.showStats(); undefined behvaior, player lost ownership (mine doesnt print name)
 
-    gameState.getPlayer().showStats();
+    while(true)
+    {
+        Game::stageSelect(gameState);
+
+        //temp
+        int a;
+        std::cin >> a;
+    }
 
     return 0; 
 }
