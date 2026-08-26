@@ -21,8 +21,11 @@ class Context
 
     const Player& getPlayer() const { return *m_player; }
     Player& getPlayer() { return *m_player; }
-    const Player& getOpponent() const { return *m_player; }
-    Player& getOpponent() { return *m_player; }
+
+    const Player& getOpponent() const { return *m_opponent; }
+    Player& getOpponent() { return *m_opponent; }
+    
+    void setOpponent(Player& enemy) { m_opponent = &enemy; }
     const Player& getCaller() const { return *m_caller; }
     Player& getCaller() { return *m_caller; }
 

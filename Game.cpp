@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Game.h"
 #include "GameState.h"
+#include "Utils.h"
 #include <string_view>
 #include <print>
 
@@ -12,12 +13,28 @@ namespace Game
     {        
         return Player{ name, hp, atk };
     }
-    void stageSelect(const GameState& gameState)
+    int stageSelect(const GameState& gameState)
     {
-        std::println("Playing: Stage Select Theme.");
+        std::println("Playing: Stage Select Theme.\n");
+
+        int iteration { 1 };
         for(const auto& bot : gameState.getEnemiesVector())
         {
-            bot.showStats();
+            std::println("{}. {}", iteration, bot.getName());
+            ++iteration;
         }
+
+        return Utils::getInt(
+            "Pick Stage Number > ", 1, static_cast<int>(gameState.getEnemiesVector().size())
+        );
+    }
+    void playStage(const GameState& gameState)
+    {
+        std::println("\n------------------------------------------\n");
+        
+        std::println("Playing: Stage Start Theme.\n");
+
+        std::println("Entering {} Stage", gameState.getContext().getOpponent().getName());
+
     }
 }

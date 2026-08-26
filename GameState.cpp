@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Context.h"
 #include "CharacterData.h"
+#include <cassert>
 
 //must also be non const because moving player (changing owner) also counts as modify
 GameState::GameState(Player& player) 
@@ -20,3 +21,12 @@ GameState::GameState(Player& player)
     );
 
 } 
+void GameState::setupStageContext(int select)
+{
+    assert(select >= 1 && static_cast<std::size_t>(select) <= m_enemies.size() 
+    && "Select out of bounds");
+
+    std::size_t enemyIndex { static_cast<std::size_t>(select - 1) };
+
+    m_context.setOpponent(m_enemies[enemyIndex]);
+}

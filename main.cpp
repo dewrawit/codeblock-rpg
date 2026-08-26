@@ -14,8 +14,12 @@ int main()
 
     while(true)
     {
-        Game::stageSelect(gameState);
+        int select { Game::stageSelect(gameState) };
 
+        gameState.setupStageContext(select);
+        
+        Game::playStage(gameState);
+        
         //temp
         int a;
         std::cin >> a;

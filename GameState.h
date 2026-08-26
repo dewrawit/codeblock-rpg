@@ -14,16 +14,14 @@ class GameState
 
     const Context& getContext() const { return m_context; }
     Context& getContext() { return m_context; }
-    void setContext(Player& player, Player& enemy)
-    {
-        //Create when stage start. Kind of like megaman
-        m_context = Context{ player, enemy };
-    }
 
     const Player& getPlayer() const { return m_player; }
     Player& getPlayer() { return m_player; }
     const std::vector<Player>& getEnemiesVector() const { return m_enemies; }
     std::vector<Player>& getEnemiesVector() { return m_enemies; }
+
+    void setupStageContext(int select);
+
 
     
 
