@@ -1,5 +1,5 @@
-#include "Player.h"
-#include "CodeBlocks/CodeBlock.h"
+#include "entities/Player.h"
+#include "codeBlocks/CodeBlock.h"
 #include "Game.h"
 #include "CharacterData.h"
 #include "Context.h"

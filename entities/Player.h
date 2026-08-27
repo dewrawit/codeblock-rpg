@@ -1,19 +1,15 @@
 #pragma once
-#include "CodeBlocks/CodeBlock.h"
+#include "../codeBlocks/CodeBlock.h"
 #include <vector>
 #include <memory>
 #include <print>
 #include <string>
 #include <string_view>
+#include "Character.h"
 
-class CodeBlock;
-
-class Player
+class Player : public Character
 {
     private:
-    std::string m_name {};
-    int m_hp {};
-    int m_atk {};
     std::vector<std::unique_ptr<CodeBlock>> m_blocks {};
     bool m_defeated { false };
     
@@ -22,15 +18,8 @@ class Player
     using SV = std::string_view;
 
     Player() = default;
-    constexpr Player(SV name, int hp, int atk) 
-        : m_name{ name }
-        , m_hp{ hp }
-        , m_atk{ atk } 
-        { }
-
-    int getHp() const { return m_hp; }
-    int getAtk() const { return m_atk; }
-    const std::string& getName() const { return m_name; }
+    constexpr Player(SV name, int hp, int atk) : Character{name,hp,atk} { }
+    
     bool isDefeated() const { return m_defeated; }
     void showStats() const 
     {
