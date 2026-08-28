@@ -1,13 +1,15 @@
 #pragma once
 #include "Context.h"
 #include "Game.h"
+#include "stages/Stage.h"
 
 class GameState
 {
     private:
     Player m_player{};
     Context m_context {};
-    std::vector<Player> m_enemies {};
+
+    std::vector<Stage> m_stages {}; //Context
 
     public:
     GameState(Player& player);
@@ -17,8 +19,8 @@ class GameState
 
     const Player& getPlayer() const { return m_player; }
     Player& getPlayer() { return m_player; }
-    const std::vector<Player>& getEnemiesVector() const { return m_enemies; }
-    std::vector<Player>& getEnemiesVector() { return m_enemies; }
+    const std::vector<Stage>& getStageVector() const { return m_stages; }
+    std::vector<Stage>& getStageVector() { return m_stages; }
 
     void setupStageContext(int select);
 

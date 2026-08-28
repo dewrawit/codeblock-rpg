@@ -6,7 +6,8 @@ class Context
 {
     private:
     Player* m_player{ nullptr };
-    Player* m_opponent{ nullptr }; //GameState has Data of opponent, context references it
+
+    Stage* m_stage{ nullptr }; //GameState has Data of stage, context references it
 
     Player* m_caller{ nullptr }; //Who owns that code
 
@@ -15,17 +16,14 @@ class Context
     Context(Player& player) //Context can modify Player, so parameter must be non const
         : m_player{ &player }
         { }
-    Context(Player& player, Player& enemy)
-        : m_player{ &player }, m_opponent{ &enemy }
-        { }
 
     const Player& getPlayer() const { return *m_player; }
     Player& getPlayer() { return *m_player; }
 
-    const Player& getOpponent() const { return *m_opponent; }
-    Player& getOpponent() { return *m_opponent; }
+    const Stage& getStage() const { return *m_stage; }
+    Stage& getStage() { return *m_stage; }
     
-    void setOpponent(Player& enemy) { m_opponent = &enemy; }
+    void setStage(Stage& stage) { m_stage = &stage; }
     const Player& getCaller() const { return *m_caller; }
     Player& getCaller() { return *m_caller; }
 

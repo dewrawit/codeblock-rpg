@@ -12,6 +12,7 @@ class Character
     int m_atk{};
 
     public:
+    constexpr Character() = default;
     constexpr Character(SV name, int hp, int atk)
         : m_name{ name }
         , m_hp{ hp }
@@ -23,6 +24,7 @@ class Character
 
     int getAtk() const { return m_atk; }
 
+    //Fight Component
     void attack(Character& target)
     {
         target.m_hp -= getAtk();

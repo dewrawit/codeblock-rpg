@@ -1,7 +1,9 @@
 #include "GameState.h"
 #include "Game.h"
 #include "Context.h"
-#include "CharacterData.h"
+#include "EnemyDatabase.h"
+#include "StageDatabase.h"
+#include "keys/Key.h"
 #include <cassert>
 
 //must also be non const because moving player (changing owner) also counts as modify
@@ -9,24 +11,21 @@ GameState::GameState(Player& player)
     : m_player{ std::move(player) } //must move because player owns unique_ptr
     , m_context{ m_player }
 {
-    //Make enemies
-    m_enemies.push_back(
-        Game::createCharacter("Python-Chan", Data::PythonHp, Data::PythonAtk)
-    );
-    m_enemies.push_back(
-        Game::createCharacter("C-Chan", Data::CHp, Data::CAtk)
-    );
-    m_enemies.push_back(
-        Game::createCharacter("Cpp-Chan", Data::CppHp, Data::CppAtk)
-    );
+    EnemyDatabase enemyDatabase {};
+    StageDatabase stageDatabase { enemyDatabase };
 
+    //All stages in the game
+
+    m_stages.push_back(stageDatabase.createStage(Key::Stage::Python));
+    m_stages.push_back(stageDatabase.createStage(Key::Stage::C));
+    m_stages.push_back(stageDatabase.createStage(Key::Stage::Cpp));
 } 
 void GameState::setupStageContext(int select)
 {
-    assert(select >= 1 && static_cast<std::size_t>(select) <= m_enemies.size() 
+    assert(select >= 1 && static_cast<std::size_t>(select) <= m_stages.size() 
     && "Select out of bounds");
 
-    std::size_t enemyIndex { static_cast<std::size_t>(select - 1) };
+    std::size_t stageIndex { static_cast<std::size_t>(select - 1) };
 
-    m_context.setOpponent(m_enemies[enemyIndex]);
+    m_context.setStage(m_stages[stageIndex]);
 }

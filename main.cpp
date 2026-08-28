@@ -1,13 +1,12 @@
 #include "entities/Player.h"
 #include "codeBlocks/CodeBlock.h"
 #include "Game.h"
-#include "CharacterData.h"
 #include "Context.h"
 #include "GameState.h"
 
 int main()
 {
-    Player player { Game::createCharacter("Player", Data::PlayerHp, Data::PlayerAtk) };
+    Player player { Game::createBasePlayer() };
 
     GameState gameState { player }; //player is moved into gameState, not copied
     //player.showStats(); undefined behvaior, player lost ownership (mine doesnt print name)

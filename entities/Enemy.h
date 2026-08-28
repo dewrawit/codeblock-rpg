@@ -14,10 +14,11 @@ class Enemy : public Character
     bool m_defeated{ false };
 
     public:
-    Enemy(const EnemyInfo& enemyInfo, const auto& func ) : m_enemyInfo{ enemyInfo } 
-    {
-        m_enemyInfo.behavior = func;
-    }
+    Enemy(const EnemyInfo& enemyInfo, const auto& func ) 
+        : Character{ enemyInfo.name, enemyInfo.hp, enemyInfo.atk }
+        , m_actionPerTurn{ enemyInfo.actionPerTurn }
+        , m_behavior{ func }
+        { }
 
     int getActionPerTurn() const { return m_actionPerTurn; }
     bool isDefeated() const { return m_defeated; }
