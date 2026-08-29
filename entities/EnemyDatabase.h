@@ -150,11 +150,11 @@ class EnemyDatabase
             }
         );
         m_enemyDatabase.emplace(
-            Key::Enemy::MemoryLeech,
+            Key::Enemy::MemLeech,
             Enemy{
 
                 EnemyInfo{
-                    .name = Key::Enemy::MemoryLeech,
+                    .name = Key::Enemy::MemLeech,
                     .hp = 100,
                     .atk = 10,
                     .actionPerTurn = 5,

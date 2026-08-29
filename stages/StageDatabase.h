@@ -30,7 +30,7 @@ class StageDatabase
 
         m_stages[Key::Stage::C].add(enemyDatabase.createEnemy(Key::Enemy::ArrayPillar));
         m_stages[Key::Stage::C].add(enemyDatabase.createEnemy(Key::Enemy::StarTick));
-        m_stages[Key::Stage::C].add(enemyDatabase.createEnemy(Key::Enemy::MemoryLeech));
+        m_stages[Key::Stage::C].add(enemyDatabase.createEnemy(Key::Enemy::MemLeech));
         m_stages[Key::Stage::C].add(enemyDatabase.createEnemy(Key::Enemy::PointBeetle));
         m_stages[Key::Stage::C].add(enemyDatabase.createEnemy(Key::Enemy::CChan));
 

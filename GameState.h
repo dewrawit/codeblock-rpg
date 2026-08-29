@@ -2,10 +2,19 @@
 #include "Context.h"
 #include "Game.h"
 #include "stages/Stage.h"
+#include "entities/EnemyDatabase.h"
+#include "stages/StageDatabase.h"
+#include <cstddef>
 
 class GameState
 {
+    public:
+    enum class StageIndex { python, c, cpp, maxStages };
+
     private:
+    EnemyDatabase m_enemyDatabase {};
+    StageDatabase m_stageDatabase { m_enemyDatabase };
+
     Player m_player{};
     Context m_context {};
 
@@ -23,6 +32,7 @@ class GameState
     std::vector<Stage>& getStageVector() { return m_stages; }
 
     void setupStageContext(int select);
+    void restoreStage(StageIndex stageIndex);
 
 
     
