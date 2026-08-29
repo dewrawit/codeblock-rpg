@@ -1,5 +1,6 @@
 #pragma once
 #include "entities/Player.h"
+#include "stages/Stage.h"
 #include <memory>
 
 class Context

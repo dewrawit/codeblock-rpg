@@ -39,5 +39,7 @@ namespace Game
 
         std::println("Entering {} Stage", gameState.getContext().getStage().getBoss().getName());
 
+        //TBD: Make Context connect to stage instead. can Restore stage if player quit stage
+
     }
 }

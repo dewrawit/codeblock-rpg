@@ -1,8 +1,8 @@
 #include "GameState.h"
 #include "Game.h"
 #include "Context.h"
-#include "EnemyDatabase.h"
-#include "StageDatabase.h"
+#include "entities/EnemyDatabase.h"
+#include "stages/StageDatabase.h"
 #include "keys/Key.h"
 #include <cassert>
 
@@ -15,7 +15,6 @@ GameState::GameState(Player& player)
     StageDatabase stageDatabase { enemyDatabase };
 
     //All stages in the game
-
     m_stages.push_back(stageDatabase.createStage(Key::Stage::Python));
     m_stages.push_back(stageDatabase.createStage(Key::Stage::C));
     m_stages.push_back(stageDatabase.createStage(Key::Stage::Cpp));

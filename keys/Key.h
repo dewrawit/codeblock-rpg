@@ -1,27 +1,36 @@
 #pragma once
-#include <string_view>
+#include <string>
 
 namespace Key
 {
-    using SV = std::string_view;
+    using S = std::string;
 
     namespace Enemy
     {
-        constexpr SV PythonChan {"Python-Chan"};
-        constexpr SV BlueSnake {"Blue-Snake"};
-        constexpr SV YellowSnake {"Yellow-Snake"};
-        constexpr SV PyAConda {"Py-Aconda"};
+        constexpr S PythonChan {"Python-Chan"};
+        constexpr S BlueSnake {"Blue-Snake"};
+        constexpr S YellowSnake {"Yellow-Snake"};
+        constexpr S PyAConda {"PyAconda"};
 
         
-        constexpr SV CChan {"C-Chan"};
+        constexpr S CChan {"C-Chan"};
+        constexpr S ArrayPillar {"ArrayPillar"};
+        constexpr S StarTick {"StarTick"};
+        constexpr S PointBeetle {"PointBeetle"};
+        constexpr S MemoryLeech {"MemoryLeech"};
+
+        constexpr S CppChan {"Cpp-Chan"};
+        constexpr S SegFlea {"SegFlea"};
+        constexpr S RaiiFly {"RaiiFly"};
+        constexpr S TempTula {"TempTula"};
 
     }
     namespace Stage
     {
-        constexpr SV Python {"Python-Stage"};
+        constexpr S Python {"Python-Stage"};
 
-        constexpr SV C {"C-Stage"};
+        constexpr S C {"C-Stage"};
 
-        constexpr SV Cpp {"Cpp-Stage"};
+        constexpr S Cpp {"Cpp-Stage"};
     }
 }

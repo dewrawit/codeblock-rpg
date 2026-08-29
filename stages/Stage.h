@@ -1,5 +1,5 @@
 #pragma once
-#include "entities/Enemy.h"
+#include "../entities/Enemy.h"
 #include <queue>
 #include <string>
 

@@ -3,21 +3,19 @@
 #include "../entities/EnemyDatabase.h"
 #include "../keys/Key.h"
 #include <unordered_map>
-#include <string_view>
+
+#include <string>
 #include <cassert>
 
 class StageDatabase
 {
     private:
-    using SV = std::string_view;
-    std::unordered_map<std::string_view,Stage> m_stages {};
+    std::unordered_map<std::string,Stage> m_stages {};
 
     public:
-    Stage createStage(SV key) const
+    Stage createStage(const std::string& key) const
     {
-        assert(m_stages.contains(key) && "createStage key not in StageDatabase");
-
-        return m_stages.at(key);
+        return m_stages.at(key); //if this key doesn't exist it will safely fail the program
     }
     StageDatabase(const EnemyDatabase& enemyDatabase)
     {
@@ -27,6 +25,22 @@ class StageDatabase
         m_stages[Key::Stage::Python].add(enemyDatabase.createEnemy(Key::Enemy::YellowSnake));
         m_stages[Key::Stage::Python].add(enemyDatabase.createEnemy(Key::Enemy::PyAConda));
         m_stages[Key::Stage::Python].add(enemyDatabase.createEnemy(Key::Enemy::PythonChan));
+
+        m_stages.emplace(Key::Stage::C, Stage{Key::Stage::C});
+
+        m_stages[Key::Stage::C].add(enemyDatabase.createEnemy(Key::Enemy::ArrayPillar));
+        m_stages[Key::Stage::C].add(enemyDatabase.createEnemy(Key::Enemy::StarTick));
+        m_stages[Key::Stage::C].add(enemyDatabase.createEnemy(Key::Enemy::MemoryLeech));
+        m_stages[Key::Stage::C].add(enemyDatabase.createEnemy(Key::Enemy::PointBeetle));
+        m_stages[Key::Stage::C].add(enemyDatabase.createEnemy(Key::Enemy::CChan));
+
+        m_stages.emplace(Key::Stage::Cpp, Stage{Key::Stage::Cpp});
+
+        m_stages[Key::Stage::Cpp].add(enemyDatabase.createEnemy(Key::Enemy::SegFlea));
+        m_stages[Key::Stage::Cpp].add(enemyDatabase.createEnemy(Key::Enemy::RaiiFly));
+        m_stages[Key::Stage::Cpp].add(enemyDatabase.createEnemy(Key::Enemy::TempTula));
+        m_stages[Key::Stage::Cpp].add(enemyDatabase.createEnemy(Key::Enemy::CppChan));
+
     }
 
     //TBD option to restore the stage if player quit (like megaman)
