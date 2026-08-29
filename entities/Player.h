@@ -5,6 +5,7 @@
 #include <print>
 #include <string>
 #include <string_view>
+#include <cstddef>
 #include "Character.h"
 
 class Player : public Character
@@ -24,6 +25,17 @@ class Player : public Character
     void showStats() const 
     {
         std::println("{}, HP: {}, ATK: {}", getName(), getHp(), getAtk());
+    }
+
+    void clearAndResizeIDE(std::size_t lineCount)
+    {
+        clearIDE();
+        m_blocks.resize(lineCount);
+    }
+    void clearIDE()
+    {
+        std::size_t size { m_blocks.size() };
+        clearAndResizeIDE(size);
     }
 
 };

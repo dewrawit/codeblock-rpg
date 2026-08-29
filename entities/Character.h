@@ -21,13 +21,16 @@ class Character
 
     const std::string& getName() const { return m_name; }
     int getHp() const { return m_hp; }
-
     int getAtk() const { return m_atk; }
+    bool isAlive() const { return m_hp > 0; }
+    bool isDead() const { return !isAlive(); }
 
     //Fight Component
     void attack(Character& target)
     {
         target.m_hp -= getAtk();
     }
+
+
 
 };

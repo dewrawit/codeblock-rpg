@@ -4,6 +4,8 @@
 #include "Utils.h"
 #include <string_view>
 #include <print>
+#include "codeBlocks/CodeBlockPool.h"
+#include "codeBlocks/CodeBlock.h"
 
 namespace Game
 {
@@ -59,8 +61,29 @@ namespace Game
         }
     }
     bool enterBattle(Player& player, Enemy& enemy)
-    {
-        //Where the code block shit happens
+    {        
+        //Clear any old vector content, resize so its size same as actionPerTurn of enemy
+        player.clearAndResizeIDE(enemy.getActionPerTurn());
+
+        while(player.isAlive() && enemy.isAlive()) //For each turn
+        {
+            player.clearIDE();
+            
+
+            //1.Generate blocks from code block pool, lets say 3*actionPerTurn blocks
+            //But make sure the generation algorithm gave at least x block in each block type
+            //(Number/Var, Fight action, operator etc.) 
+
+
+            //2.Input to ask what block they want and where to put it in
+            //This will modify the codeBlock vector of the player
+            //Check if that line is occupied / able to insert a block there or not
+            //Keep going until player run code
+            
+            //3.When player is ready, type 'R' to start the run
+            //For each line, player act the code first, follow by enemy (preset behavior)
+        }
         
+
     }
 }
