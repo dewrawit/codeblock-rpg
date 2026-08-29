@@ -31,7 +31,7 @@ namespace Game
             "Pick Stage Number > ", 1, static_cast<int>(gameState.getStageVector().size())
         );
     }
-    void playStage(const GameState& gameState)
+    void playStage(GameState& gameState)
     {
         std::println("\n------------------------------------------\n");
         
@@ -39,7 +39,28 @@ namespace Game
 
         std::println("Entering {} Stage", gameState.getContext().getStage().getBoss().getName());
 
-        //TBD: Make Context connect to stage instead. can Restore stage if player quit stage
+        constexpr bool win { true };
 
+        Stage& stage { gameState.getContext().getStage() };
+  
+        while(!stage.cleared())
+        {
+            Player& player { gameState.getContext().getPlayer() };
+            Enemy& enemy { gameState.getContext().getStage().getNextEnemy() };
+
+            if(enterBattle(player, enemy) == win)
+            {
+                stage.popEnemyFromQueue();
+            }
+            else
+            {
+                assert(false && "TBD! Player lose (maybe a life system like megaman later)");
+            }
+        }
+    }
+    bool enterBattle(Player& player, Enemy& enemy)
+    {
+        //Where the code block shit happens
+        
     }
 }

@@ -2,6 +2,7 @@
 #include "../entities/Enemy.h"
 #include <queue>
 #include <string>
+#include <cassert>
 
 class Stage
 {
@@ -19,11 +20,16 @@ class Stage
     {
         m_enemies.push(enemy); //copies enemy
     }
-    bool stageCleared() const
+    bool cleared() const
     {
         return m_enemies.empty();
     }   
+    void popEnemyFromQueue()
+    {
+        assert(!cleared() && "Attempt to pop an empty stage queue");
 
+        m_enemies.pop();
+    }
     //Return by reference, allowing Context to modify enemy stage when player battles it
     const Enemy& getNextEnemy() const
     {

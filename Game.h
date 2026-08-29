@@ -10,5 +10,6 @@ namespace Game
 
     Player createBasePlayer();
     int stageSelect(const GameState& gameState);
-    void playStage(const GameState& gameState);
+    void playStage(GameState& gameState);
+    bool enterBattle();
 }
