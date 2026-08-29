@@ -22,13 +22,17 @@ class CodeBlockPool
         return std::make_unique<BlockType>(t,r,dis);
     }
 
-    CodeBlockPool()
+    CodeBlockPool(std::size_t size)
     {
-        //Create all the code blocks in the game here
-        //m_pool.push_back(makeBlock())
-        
+        m_pool.resize(size);
     }
-
+    void fillRandomBlocks()
+    {
+        for(auto i {0uz}; i < m_pool.size(); ++i)
+        {
+            m_pool[i] = generateRandomCodeBlock();
+        }
+    }
     static std::unique_ptr<CodeBlock> generateRandomCodeBlock()
     {
 

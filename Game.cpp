@@ -65,14 +65,17 @@ namespace Game
         //Clear any old vector content, resize so its size same as actionPerTurn of enemy
         player.clearAndResizeIDE(enemy.getActionPerTurn());
 
+        CodeBlockPool codeBlockPool (3 * enemy.getActionPerTurn());
+
         while(player.isAlive() && enemy.isAlive()) //For each turn
         {
             player.clearIDE();
-            
 
             //1.Generate blocks from code block pool, lets say 3*actionPerTurn blocks
             //But make sure the generation algorithm gave at least x block in each block type
             //(Number/Var, Fight action, operator etc.) 
+
+            codeBlockPool.fillRandomBlocks();
 
 
             //2.Input to ask what block they want and where to put it in
@@ -83,7 +86,5 @@ namespace Game
             //3.When player is ready, type 'R' to start the run
             //For each line, player act the code first, follow by enemy (preset behavior)
         }
-        
-
     }
 }

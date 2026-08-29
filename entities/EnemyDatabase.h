@@ -232,7 +232,6 @@ class EnemyDatabase
             }
         );
 
-
         m_enemyDatabase.emplace(
             Key::Enemy::SegFlea,
             Enemy{
