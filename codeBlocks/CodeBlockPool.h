@@ -100,7 +100,7 @@ class CodeBlockPool
     void printAllBlocks()
     {
         std::println("All blocks in the game: ");
-        
+
         for(const auto& row : m_allBlocks)
         {
             for(const auto& blockPtr : row)
@@ -109,5 +109,23 @@ class CodeBlockPool
             }
             std::cout << '\n';
         }
+    }
+
+    void printPool()
+    {
+        std::println("---------------Your Pool---------------\n");
+
+        //TBD Shuffle first, we dont want user finding out our rng mechanic!
+
+        for(auto i {1uz}; i <= m_pool.size(); ++i)
+        {
+            std::cout << *m_pool[i - 1] << ' ';
+
+            if(i % 5 == 0)
+                std::cout << '\n';
+        }
+
+        std::println("---------------------------------------\n");
+
     }
 };

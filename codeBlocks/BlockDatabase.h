@@ -113,10 +113,28 @@ class BlockDatabase
                 CodeBlock::Type::noArgs,
                 CodeBlock::Rarity::rare,
                 CodeBlock::OutputType::none,
-                "HeavyAttack",
+                "Heavy Attack",
                 [](Context& context) -> CodeBlock::BlockValue
                 {
                     context.getPlayer().attack(context.getActiveEnemy());
+                    return std::monostate{};
+                }
+            )
+        );
+
+        m_blockDatabase.emplace(
+            Key::Block::LifeSteal,
+            std::make_unique<NoArgBlock>(
+                CodeBlock::Type::noArgs,
+                CodeBlock::Rarity::epic,
+                CodeBlock::OutputType::none,
+                "Life Steal",
+                [](Context& context) -> CodeBlock::BlockValue
+                {
+                    context.getPlayer().attack(context.getActiveEnemy());
+
+                    context.getPlayer().heal(context.getPlayer().getAtk());
+                    
                     return std::monostate{};
                 }
             )

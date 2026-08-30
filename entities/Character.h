@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <string_view>
+#include <cassert>
 
 class Character
 {
@@ -33,6 +34,12 @@ class Character
     void heavyAttack(Character& target)
     {
         target.m_hp -= 2 * getAtk();
+    }
+    void heal(int amount)
+    {
+        assert(m_hp > 0 && "Cannot heal, aleady dead");
+
+        m_hp += amount;
     }
 
 

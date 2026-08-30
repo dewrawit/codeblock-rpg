@@ -36,11 +36,11 @@ namespace Game
     }
     void playStage(GameState& gameState)
     {
-        std::println("\n------------------------------------------\n");
-        
-        std::println("Playing: Stage Start Theme.\n");
+        std::println("------------------------------------------\n");
 
         std::println("Entering {} Stage", gameState.getContext().getStage().getBoss().getName());
+
+        std::println("\n------------------------------------------\n");
 
         constexpr bool win { true };
 
@@ -71,6 +71,7 @@ namespace Game
 
         //Test if it successfully get all blocks from Database
         codeBlockPool.printAllBlocks();
+        std::println();
 
         while(player.isAlive() && enemy.isAlive()) //For each turn
         {
@@ -81,9 +82,7 @@ namespace Game
             //(Number/Var, Fight action, operator etc.) 
 
             codeBlockPool.fillRandomBlocks();
-
-            std::print("Blocks: ");
-
+            codeBlockPool.printPool();
 
             //2.Input to ask what block they want and where to put it in
             //This will modify the codeBlock vector of the player

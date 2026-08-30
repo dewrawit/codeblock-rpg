@@ -43,6 +43,7 @@ namespace Key
         
         constexpr S Attack {"Attack"};
         constexpr S HeavyAttack {"HeavyAttack"};
+        constexpr S LifeSteal {"LifeSteal"};
         constexpr S Guard {"Guard"};
         constexpr S Parry {"Parry"};
         constexpr S Counter {"Counter"};
