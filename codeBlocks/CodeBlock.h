@@ -6,6 +6,7 @@
 #include <functional>
 #include <variant>
 #include <memory>
+#include <cassert>
 
 class Context;
 class Player;
@@ -45,6 +46,15 @@ class CodeBlock
     Rarity getRarity() const { return m_rarity; }
     OutputType getOutputType() const { return m_outputType; }
     SV getDisplayText() const { return m_displayText; }
+    SV rarityToStr() const {
+        switch(m_rarity)
+        {
+            case Rarity::common: return "Common";
+            case Rarity::rare: return "Rare";
+            case Rarity::epic: return "Epic";
+            default: assert(false && "Cannot convert invalid rarity to string");
+        }
+    }
 
     virtual std::unique_ptr<CodeBlock> clone() const
     {
@@ -53,7 +63,7 @@ class CodeBlock
 
     friend std::ostream& operator<<(std::ostream& out, const CodeBlock& cb)
     {
-        out << "[ " << cb.m_displayText << " ]";
+        out << "[ ( " << cb.rarityToStr() << " ) " << cb.m_displayText << " ]";
         return out;
     }
 };

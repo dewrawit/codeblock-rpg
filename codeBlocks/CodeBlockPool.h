@@ -7,10 +7,13 @@
 #include <cassert>
 #include <vector>
 #include <array>
+#include <utility>
+#include <print>
 
 class CodeBlockPool
 {
     private:
+    using ST = std::size_t;
     using RarityCatagorizedPool = 
     std::array<
         std::vector<std::unique_ptr<CodeBlock>>,
@@ -25,16 +28,7 @@ class CodeBlockPool
     public:
     using SV = std::string_view;
 
-    template <typename BlockType>
-    std::unique_ptr<CodeBlock> makeBlock(CodeBlock::Type t, CodeBlock::Rarity r, SV dis) const
-    {
-        //Check if template has same type or derived from CodeBlock
-        static_assert(std::is_base_of_v<CodeBlock,BlockType> && "Unrelated class in makeBlock");
-
-        return std::make_unique<BlockType>(t,r,dis);
-    }
-
-    CodeBlockPool(std::size_t size)
+    CodeBlockPool(ST size)
     {
         m_pool.resize(size);
 
@@ -48,14 +42,41 @@ class CodeBlockPool
             m_pool[i] = generateRandomCodeBlock();
         }
     }
-    static std::unique_ptr<CodeBlock> generateRandomCodeBlock()
+
+    std::unique_ptr<CodeBlock> getRandomBlockFixedRarity(CodeBlock::Rarity rarityIndex)
     {
-        return std::make_unique<CodeBlock>();
+        const auto& rarityBlockRow { m_allBlocks[static_cast<ST>(rarityIndex)] };
+        assert(!rarityBlockRow.empty() && "A rarity has no blocks, cannot generate");
+
+        ST maxIndex { rarityBlockRow.size() - 1 };
+        ST rng { Random::get<ST>(0,maxIndex) };
+
+        return rarityBlockRow[rng]->clone();
+    }
+    std::unique_ptr<CodeBlock> generateRandomCodeBlock()
+    {
+    
+        constexpr std::array< std::pair<CodeBlock::Rarity, int>,
+        static_cast<ST>(CodeBlock::Rarity::maxRarityCount) > dropRate
+        {
+            std::pair{CodeBlock::Rarity::common, 70}, //Common = 1-70
+            std::pair{CodeBlock::Rarity::rare, 90}, //Rare = 71-90
+            std::pair{CodeBlock::Rarity::epic, 100}, //Epic = 91-100
+        };
+
+        int rng { Random::get(1,100) };
+
+        for(const auto& [rarity, rate] : dropRate)
+        {
+            if(rng <= rate)
+            {
+                return getRandomBlockFixedRarity(rarity);
+            }
+        }
+        assert(false && "No drop, maybe rate accumulation is wrong?");
     }
     void receiveAllBlocksInfo(const BlockDatabase& blockDatabase)
     {   
-        using ST = std::size_t;
-
         for(const auto& [ key , blockPtr ] : blockDatabase.getMap())
         {
             ST rarityIndex {};
@@ -78,6 +99,8 @@ class CodeBlockPool
     //For testing
     void printAllBlocks()
     {
+        std::println("All blocks in the game: ");
+        
         for(const auto& row : m_allBlocks)
         {
             for(const auto& blockPtr : row)
