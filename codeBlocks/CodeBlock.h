@@ -5,6 +5,7 @@
 #include <iostream>
 #include <functional>
 #include <variant>
+#include <memory>
 
 class Context;
 class Player;
@@ -12,7 +13,7 @@ class Player;
 class CodeBlock
 {
     public:
-    using BlockValue = std::variant<std::monostate,int>;
+    using BlockValue = std::variant<std::monostate,int>; //monostate = no value
 
     using NoArgFunction = std::function<BlockValue(Context&)>;
     using OneIntFunction = std::function<BlockValue(Context&,int)>;
@@ -21,7 +22,7 @@ class CodeBlock
     using SV = std::string_view;
 
     enum class Type { empty, noArgs, oneInt, playerInt, twoInt };
-    enum class Rarity { common, rare, epic };
+    enum class Rarity { common = 0, rare = 1, epic = 2, maxRarityCount = 3};
     enum class OutputType { none, integer };
 
     private:
@@ -41,7 +42,14 @@ class CodeBlock
         { }
 
     Type getType() const { return m_type; }
+    Rarity getRarity() const { return m_rarity; }
+    OutputType getOutputType() const { return m_outputType; }
     SV getDisplayText() const { return m_displayText; }
+
+    virtual std::unique_ptr<CodeBlock> clone() const
+    {
+        return std::make_unique<CodeBlock>(*this);
+    }
 
     friend std::ostream& operator<<(std::ostream& out, const CodeBlock& cb)
     {

@@ -6,16 +6,34 @@
 #include "DerivedBlock.h"
 #include "../keys/Key.h"
 #include "../Context.h"
+#include <typeinfo>
 
 class BlockDatabase
 {
     private:
-    std::unordered_map<std::string,std::unique_ptr<CodeBlock>> m_blockDatabase{};
+    using BlockMap = std::unordered_map<std::string,std::unique_ptr<CodeBlock>>;
+    BlockMap m_blockDatabase{};
 
     public:
+    //Clone a unique_ptr from database
     std::unique_ptr<CodeBlock> createBlock(const std::string& key) const
     {
-        
+        return m_blockDatabase.at(key)->clone();
+
+        //Doesnt work: .at() return reference / C++ doesn't allow copy unique_ptr 
+        //return m_blockDatabase.at(key);
+
+        // Also doesn't work, .at() return a CodeBlock& and has no suitable conversion to derived
+        // if(typeid(*m_blockDatabase.at(key)) == typeid(NoArgBlock))
+        // {
+        //     return std::make_unique<NoArgBlock>(*m_blockDatabase.at(key));
+        // }
+        // ...and so on for every derived type
+      
+    }
+    const BlockMap& getMap() const
+    {
+        return m_blockDatabase;
     }
     BlockDatabase()
     {
@@ -27,7 +45,7 @@ class BlockDatabase
                     CodeBlock::Rarity::common,
                     CodeBlock::OutputType::integer,
                     "5",
-                    [](Context&) -> int
+                    [](Context&) -> CodeBlock::BlockValue
                     {
                         return 5;
                     }
@@ -40,7 +58,7 @@ class BlockDatabase
                     CodeBlock::Rarity::common,
                     CodeBlock::OutputType::integer,
                     "10",
-                    [](Context&) -> int
+                    [](Context&) -> CodeBlock::BlockValue
                     {
                         return 10;
                     }
@@ -53,7 +71,7 @@ class BlockDatabase
                     CodeBlock::Rarity::rare,
                     CodeBlock::OutputType::integer,
                     "15",
-                    [](Context&) -> int
+                    [](Context&) -> CodeBlock::BlockValue
                     {
                         return 15;
                     }
@@ -66,7 +84,7 @@ class BlockDatabase
                     CodeBlock::Rarity::rare,
                     CodeBlock::OutputType::integer,
                     "20",
-                    [](Context&) -> int
+                    [](Context&) -> CodeBlock::BlockValue
                     {
                         return 20;
                     }
@@ -81,9 +99,10 @@ class BlockDatabase
                 CodeBlock::Rarity::common,
                 CodeBlock::OutputType::none,
                 "Attack",
-                [](Context& context) -> void
+                [](Context& context) -> CodeBlock::BlockValue
                 {
                     context.getPlayer().attack(context.getActiveEnemy());
+                    return std::monostate{};
                 }
             )
         );
@@ -95,13 +114,15 @@ class BlockDatabase
                 CodeBlock::Rarity::rare,
                 CodeBlock::OutputType::none,
                 "HeavyAttack",
-                [](Context& context) -> void
+                [](Context& context) -> CodeBlock::BlockValue
                 {
                     context.getPlayer().attack(context.getActiveEnemy());
+                    return std::monostate{};
                 }
             )
         );
 
+        /* Hevent implement function yet
         m_blockDatabase.emplace(
             Key::Block::Guard,
             std::make_unique<NoArgBlock>(
@@ -109,7 +130,7 @@ class BlockDatabase
                 CodeBlock::Rarity::common,
                 CodeBlock::OutputType::none,
                 "Guard",
-                [](Context& context) -> void
+                [](Context& context) -> CodeBlock::BlockValue
                 {
 
                 }
@@ -123,7 +144,7 @@ class BlockDatabase
                 CodeBlock::Rarity::rare,
                 CodeBlock::OutputType::none,
                 "Parry",
-                [](Context& context) -> void
+                [](Context& context) -> CodeBlock::BlockValue
                 {
 
                 }
@@ -137,12 +158,12 @@ class BlockDatabase
                 CodeBlock::Rarity::epic,
                 CodeBlock::OutputType::none,
                 "Counter",
-                [](Context& context) -> void
+                [](Context& context) -> CodeBlock::BlockValue
                 {
 
                 }
             )
         );
-                     
+        */        
     }
 };

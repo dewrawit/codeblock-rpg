@@ -69,6 +69,9 @@ namespace Game
 
         CodeBlockPool codeBlockPool (static_cast<std::size_t>(3 * enemy.getActionPerTurn()));
 
+        //Test if it successfully get all blocks from Database
+        codeBlockPool.printAllBlocks();
+
         while(player.isAlive() && enemy.isAlive()) //For each turn
         {
             player.clearIDE();
