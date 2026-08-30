@@ -3,6 +3,7 @@
 
 class Player;
 class GameState;
+class Enemy;
 
 namespace Game
 {
@@ -11,5 +12,5 @@ namespace Game
     Player createBasePlayer();
     int stageSelect(const GameState& gameState);
     void playStage(GameState& gameState);
-    bool enterBattle();
+    bool enterBattle(Player& player, Enemy& enemy);
 }

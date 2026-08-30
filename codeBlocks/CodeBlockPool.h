@@ -26,6 +26,7 @@ class CodeBlockPool
     {
         m_pool.resize(size);
     }
+    
     void fillRandomBlocks()
     {
         for(auto i {0uz}; i < m_pool.size(); ++i)
@@ -35,6 +36,6 @@ class CodeBlockPool
     }
     static std::unique_ptr<CodeBlock> generateRandomCodeBlock()
     {
-
+        return std::make_unique<CodeBlock>();
     }
 };

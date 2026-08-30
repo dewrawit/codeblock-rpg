@@ -30,6 +30,11 @@ class Character
     {
         target.m_hp -= getAtk();
     }
+    void heavyAttack(Character& target)
+    {
+        target.m_hp -= 2 * getAtk();
+    }
+
 
 
 

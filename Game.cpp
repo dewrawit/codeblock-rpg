@@ -1,4 +1,5 @@
 #include "entities/Player.h"
+#include "entities/Enemy.h"
 #include "Game.h"
 #include "GameState.h"
 #include "Utils.h"
@@ -48,7 +49,7 @@ namespace Game
         while(!stage.cleared())
         {
             Player& player { gameState.getContext().getPlayer() };
-            Enemy& enemy { gameState.getContext().getStage().getNextEnemy() };
+            Enemy& enemy { gameState.getContext().getStage().getCurrentEnemy() };
 
             if(enterBattle(player, enemy) == win)
             {
@@ -62,10 +63,11 @@ namespace Game
     }
     bool enterBattle(Player& player, Enemy& enemy)
     {        
-        //Clear any old vector content, resize so its size same as actionPerTurn of enemy
-        player.clearAndResizeIDE(enemy.getActionPerTurn());
 
-        CodeBlockPool codeBlockPool (3 * enemy.getActionPerTurn());
+        //Clear any old vector content, resize so its size same as actionPerTurn of enemy
+        player.clearAndResizeIDE(static_cast<std::size_t>(enemy.getActionPerTurn()));
+
+        CodeBlockPool codeBlockPool (static_cast<std::size_t>(3 * enemy.getActionPerTurn()));
 
         while(player.isAlive() && enemy.isAlive()) //For each turn
         {
@@ -77,6 +79,8 @@ namespace Game
 
             codeBlockPool.fillRandomBlocks();
 
+            std::print("Blocks: ");
+
 
             //2.Input to ask what block they want and where to put it in
             //This will modify the codeBlock vector of the player
@@ -85,6 +89,9 @@ namespace Game
             
             //3.When player is ready, type 'R' to start the run
             //For each line, player act the code first, follow by enemy (preset behavior)
+
+            assert(false && "Just testing");
         }
+        return player.isAlive();
     }
 }

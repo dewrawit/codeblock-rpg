@@ -33,4 +33,18 @@ namespace Key
 
         constexpr S Cpp {"Cpp-Stage"};
     }
+
+    namespace Block
+    {
+        constexpr S Five {"Five"};
+        constexpr S Ten {"Ten"};
+        constexpr S Fifteen {"Fifteen"};
+        constexpr S Twenty {"Twenty"};
+        
+        constexpr S Attack {"Attack"};
+        constexpr S HeavyAttack {"HeavyAttack"};
+        constexpr S Guard {"Guard"};
+        constexpr S Parry {"Parry"};
+        constexpr S Counter {"Counter"};
+    }
 }

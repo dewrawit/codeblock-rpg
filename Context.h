@@ -1,7 +1,10 @@
 #pragma once
 #include "entities/Player.h"
 #include "stages/Stage.h"
+
 #include <memory>
+
+class Enemy;
 
 class Context
 {
@@ -24,6 +27,9 @@ class Context
     const Stage& getStage() const { return *m_stage; }
     Stage& getStage() { return *m_stage; }
     
+    const Enemy& getActiveEnemy() const { return m_stage->getCurrentEnemy(); };
+    Enemy& getActiveEnemy() { return m_stage->getCurrentEnemy(); };
+
     void setStage(Stage& stage) { m_stage = &stage; }
     const Player& getCaller() const { return *m_caller; }
     Player& getCaller() { return *m_caller; }

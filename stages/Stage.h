@@ -31,11 +31,11 @@ class Stage
         m_enemies.pop();
     }
     //Return by reference, allowing Context to modify enemy stage when player battles it
-    const Enemy& getNextEnemy() const
+    const Enemy& getCurrentEnemy() const
     {
         return m_enemies.front();
     }
-    Enemy& getNextEnemy() 
+    Enemy& getCurrentEnemy() 
     {
         return m_enemies.front();
     }

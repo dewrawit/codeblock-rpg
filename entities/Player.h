@@ -29,13 +29,15 @@ class Player : public Character
 
     void clearAndResizeIDE(std::size_t lineCount)
     {
-        clearIDE();
+        m_blocks.clear();
         m_blocks.resize(lineCount);
     }
     void clearIDE()
     {
-        std::size_t size { m_blocks.size() };
-        clearAndResizeIDE(size);
+        for(auto& block : m_blocks)
+        {
+            block = nullptr;
+        }
     }
 
 };
