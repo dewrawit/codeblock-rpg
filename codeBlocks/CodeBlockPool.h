@@ -110,22 +110,30 @@ class CodeBlockPool
             std::cout << '\n';
         }
     }
-
+    void shufflePool()
+    {
+        for(auto i { m_pool.size() - 1 }; i > 0; --i )
+        {
+            //unique_ptr has a special overload for swap, so it works
+            std::swap(m_pool[i], m_pool[Random::get(0uz, i)]);
+        }
+    }
     void printPool()
     {
         std::println("---------------Your Pool---------------\n");
 
-        //TBD Shuffle first, we dont want user finding out our rng mechanic!
+        //We dont want user finding out our rng mechanic!
+        shufflePool();
 
         for(auto i {1uz}; i <= m_pool.size(); ++i)
         {
             std::cout << *m_pool[i - 1] << ' ';
 
-            if(i % 5 == 0)
+            if(i % 5 == 0 && i != m_pool.size())
                 std::cout << '\n';
         }
 
-        std::println("---------------------------------------\n");
+        std::println("\n\n---------------------------------------\n");
 
     }
 };
