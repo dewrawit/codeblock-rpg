@@ -35,6 +35,11 @@ class CodeBlockPool
         BlockDatabase blockDatabase {};
         receiveAllBlocksInfo(blockDatabase);
     }
+
+    std::unique_ptr<CodeBlock>& operator[](std::size_t index)
+    {
+        return m_pool[index];
+    }
     void fillRandomBlocks()
     {
         for(auto i {0uz}; i < m_pool.size(); ++i)
@@ -42,7 +47,15 @@ class CodeBlockPool
             m_pool[i] = generateRandomCodeBlock();
         }
     }
-
+    std::size_t getPoolSize()
+    {
+        return m_pool.size();
+    }
+    void removeBlockAtIndex(std::size_t index)
+    {
+        assert(m_pool.size() > index && "Attempt to remove out of bound index (CodeBlockPool)");
+        m_pool.erase(m_pool.begin() + static_cast<std::ptrdiff_t>(index));
+    }
     std::unique_ptr<CodeBlock> getRandomBlockFixedRarity(CodeBlock::Rarity rarityIndex)
     {
         const auto& rarityBlockRow { m_allBlocks[static_cast<ST>(rarityIndex)] };
@@ -122,18 +135,14 @@ class CodeBlockPool
     {
         std::println("---------------Your Pool---------------\n");
 
-        //We dont want user finding out our rng mechanic!
-        shufflePool();
-
         for(auto i {1uz}; i <= m_pool.size(); ++i)
         {
-            std::cout << *m_pool[i - 1] << ' ';
+            std::cout << i << "." << *m_pool[i - 1] << ' ';
 
             if(i % 5 == 0 && i != m_pool.size())
                 std::cout << '\n';
         }
 
         std::println("\n\n---------------------------------------\n");
-
     }
 };

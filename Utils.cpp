@@ -1,4 +1,5 @@
 #include "Utils.h"
+#include <limits>
 
 namespace Utils
 {
@@ -18,7 +19,9 @@ namespace Utils
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
                 continue;
             }
+
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+            
             if(std::cin.gcount() > 1)
             {
                 continue;

@@ -5,6 +5,7 @@
 #include "Utils.h"
 #include <string_view>
 #include <print>
+#include <format>
 #include "codeBlocks/CodeBlockPool.h"
 #include "codeBlocks/CodeBlock.h"
 
@@ -70,30 +71,71 @@ namespace Game
         CodeBlockPool codeBlockPool (static_cast<std::size_t>(3 * enemy.getActionPerTurn()));
 
         //Test if it successfully get all blocks from Database
-        codeBlockPool.printAllBlocks();
-        std::println();
+        //codeBlockPool.printAllBlocks();
+        //std::println();
+
+        std::println("Engaging {}!", enemy.getName());
 
         while(player.isAlive() && enemy.isAlive()) //For each turn
         {
+            //Every New turn
             player.clearIDE();
-
-            //1.Generate blocks from code block pool, lets say 3*actionPerTurn blocks
-            //But make sure the generation algorithm gave at least x block in each block type
-            //(Number/Var, Fight action, operator etc.) 
-
             codeBlockPool.fillRandomBlocks();
+            codeBlockPool.shufflePool();
+            //TBD
+            //make sure the generation algorithm gave at least x block in each block type
+            //(Number/Var, Fight action, operator etc.) 
+            
+            playerEditIDEPhase(player, codeBlockPool);
+            
+            //For each line, player act the code first, follow by enemy (preset behavior)
+        }
+        assert(false && "Just testing");
+        return player.isAlive();
+    }
+    void playerEditIDEPhase(Player& player, CodeBlockPool& codeBlockPool)
+    {
+        using ST = std::size_t;
+
+        constexpr int quitOrCancel { -1 };
+        //TBD, gave player option to stop editing
+
+        bool cont { true };
+        while(cont)
+        {
+            player.printIDE();
             codeBlockPool.printPool();
 
-            //2.Input to ask what block they want and where to put it in
-            //This will modify the codeBlock vector of the player
-            //Check if that line is occupied / able to insert a block there or not
-            //Keep going until player run code
-            
-            //3.When player is ready, type 'R' to start the run
-            //For each line, player act the code first, follow by enemy (preset behavior)
+            int rowIndex { 
+                Utils::getInt("Select Row Number (0 to RUN): ", 0, 
+                    static_cast<int>(player.getIDE().size())) - 1
+            };
 
-            assert(false && "Just testing");
+            if(rowIndex == quitOrCancel)
+                break;
+
+            int blockIndex { 
+                Utils::getInt("Select Block Number (0 to cancel): ", 0, 
+                    static_cast<int>(codeBlockPool.getPoolSize())) - 1
+            };
+
+            if(blockIndex == quitOrCancel)
+                continue;
+
+            //unique_ptr is an exception when move: 
+            //the old owner guaranteed to be nullptr, we're safe.
+            auto& targetIDEBlock { player.getIDE()[static_cast<ST>(rowIndex)] };
+            auto& selectedPoolBlock { codeBlockPool[static_cast<ST>(blockIndex)] };
+
+            if(targetIDEBlock == nullptr)
+            {
+                targetIDEBlock = std::move(selectedPoolBlock);
+                codeBlockPool.removeBlockAtIndex(static_cast<ST>(blockIndex));
+            } 
+            else //aready occupied, replace that row with new block and return it back to pool
+            {
+                std::swap(targetIDEBlock, selectedPoolBlock);
+            }
         }
-        return player.isAlive();
     }
 }

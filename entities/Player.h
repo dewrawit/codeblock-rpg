@@ -6,12 +6,15 @@
 #include <string>
 #include <string_view>
 #include <cstddef>
+#include <iostream>
 #include "Character.h"
 
 class Player : public Character
 {
     private:
-    std::vector<std::unique_ptr<CodeBlock>> m_blocks {};
+    using IDE = std::vector<std::unique_ptr<CodeBlock>>;
+
+    IDE m_blocks {};
     bool m_defeated { false };
     
 
@@ -20,6 +23,9 @@ class Player : public Character
 
     Player() = default;
     constexpr Player(SV name, int hp, int atk) : Character{name,hp,atk} { }
+
+    const IDE& getIDE() const { return m_blocks; }
+    IDE& getIDE() { return m_blocks; }
     
     bool isDefeated() const { return m_defeated; }
     void showStats() const 
@@ -31,6 +37,7 @@ class Player : public Character
     {
         m_blocks.clear();
         m_blocks.resize(lineCount);
+        clearIDE();
     }
     void clearIDE()
     {
@@ -39,5 +46,24 @@ class Player : public Character
             block = nullptr;
         }
     }
+    void printIDE()
+    {
+        std::println("Your Code: ");
+        std::println("-----------------------------------");
+        for(auto i {0uz}; i < m_blocks.size(); ++i)
+        {
+            std::cout << i + 1 << " >> ";
 
+            if(m_blocks[i] == nullptr)
+            {
+                std::cout << "[EMPTY]";
+            }
+            else
+            {
+                std::cout << *m_blocks[i];
+            }
+            std::println();
+        }
+        std::println("-----------------------------------");
+    }
 };

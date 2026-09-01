@@ -4,6 +4,7 @@
 class Player;
 class GameState;
 class Enemy;
+class CodeBlockPool;
 
 namespace Game
 {
@@ -13,4 +14,5 @@ namespace Game
     int stageSelect(const GameState& gameState);
     void playStage(GameState& gameState);
     bool enterBattle(Player& player, Enemy& enemy);
+    void playerEditIDEPhase(Player& player, CodeBlockPool& codeBlockPool);
 }
