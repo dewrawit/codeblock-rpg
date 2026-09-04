@@ -19,26 +19,21 @@ class StageDatabase
     }
     StageDatabase(const EnemyDatabase& enemyDatabase)
     {
+        //Make sure the boss of each stage is the last character added on that stage
+        
         m_stages.emplace(Key::Stage::Python, Stage{Key::Stage::Python});
         
         m_stages[Key::Stage::Python].add(enemyDatabase.createEnemy(Key::Enemy::BlueSnake));
-        m_stages[Key::Stage::Python].add(enemyDatabase.createEnemy(Key::Enemy::YellowSnake));
-        m_stages[Key::Stage::Python].add(enemyDatabase.createEnemy(Key::Enemy::PyAConda));
         m_stages[Key::Stage::Python].add(enemyDatabase.createEnemy(Key::Enemy::PythonChan));
 
         m_stages.emplace(Key::Stage::C, Stage{Key::Stage::C});
 
         m_stages[Key::Stage::C].add(enemyDatabase.createEnemy(Key::Enemy::ArrayPillar));
-        m_stages[Key::Stage::C].add(enemyDatabase.createEnemy(Key::Enemy::StarTick));
-        m_stages[Key::Stage::C].add(enemyDatabase.createEnemy(Key::Enemy::MemLeech));
-        m_stages[Key::Stage::C].add(enemyDatabase.createEnemy(Key::Enemy::PointBeetle));
         m_stages[Key::Stage::C].add(enemyDatabase.createEnemy(Key::Enemy::CChan));
 
         m_stages.emplace(Key::Stage::Cpp, Stage{Key::Stage::Cpp});
 
         m_stages[Key::Stage::Cpp].add(enemyDatabase.createEnemy(Key::Enemy::SegFlea));
-        m_stages[Key::Stage::Cpp].add(enemyDatabase.createEnemy(Key::Enemy::RaiiFly));
-        m_stages[Key::Stage::Cpp].add(enemyDatabase.createEnemy(Key::Enemy::TempTula));
         m_stages[Key::Stage::Cpp].add(enemyDatabase.createEnemy(Key::Enemy::CppChan));
 
     }

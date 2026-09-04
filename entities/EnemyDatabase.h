@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "EnemyInfo.h"
 #include "../keys/Key.h"
+#include "../Context.h"
 #include <unordered_map>
 #include <string_view>
 #include <cassert>
@@ -34,14 +35,22 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self, int turnNo) -> void
+                [](Enemy& self, [[maybe_unused]] Context& context) -> void
                 {
-                    for(int i {0}; i < self.getActionPerTurn(); ++i)
+                    assert(context.getActionNumber() > 0 && "actionNumber should starts at 1");
+
+                    auto& player { context.getPlayer() };
+                    switch(context.getActionNumber())
                     {
-                        
+                        case 1: self.attack(player); break;
+                        case 2: self.guard(); break;
+                        case 3: self.attack(player); break;
+                        case 4: self.guard(); break;
+                        case 5: self.attack(player); break;
+
+                        default: assert(false && "Detect action number more than cases.");
                     }
                 }
-                
             }
         );
 
@@ -56,50 +65,20 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self, int turnNo) -> void
+                [](Enemy& self, [[maybe_unused]] Context& context) -> void
                 {
-                   
-                }  
-            }
-        );
+                    assert(context.getActionNumber() > 0 && "actionNumber should starts at 1");
 
-        m_enemyDatabase.emplace(
-            Key::Enemy::YellowSnake, 
-            Enemy{
-
-                EnemyInfo{
-                    .name = Key::Enemy::YellowSnake,
-                    .hp = 100,
-                    .atk = 10,
-                    .actionPerTurn = 5,
-                },
-
-                [](Enemy& self, int turnNo) -> void
-                {
-                    for(int i {0}; i < self.getActionPerTurn(); ++i)
+                    auto& player { context.getPlayer() };
+                    switch(context.getActionNumber())
                     {
-                        
-                    }
-                }  
-            }
-        );
+                        case 1: self.attack(player); break;
+                        case 2: self.guard(); break;
+                        case 3: self.attack(player); break;
+                        case 4: self.guard(); break;
+                        case 5: self.attack(player); break;
 
-        m_enemyDatabase.emplace(
-            Key::Enemy::PyAConda, 
-            Enemy{
-
-                EnemyInfo{
-                    .name = Key::Enemy::PyAConda,
-                    .hp = 100,
-                    .atk = 10,
-                    .actionPerTurn = 5,
-                },
-
-                [](Enemy& self, int turnNo) -> void
-                {
-                    for(int i {0}; i < self.getActionPerTurn(); ++i)
-                    {
-                        
+                        default: assert(false && "Detect action number more than cases.");
                     }
                 }  
             }
@@ -117,7 +96,7 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self, int turnNo) -> void
+                [](Enemy& self, [[maybe_unused]] Context& context) -> void
                 {
                     for(int i {0}; i < self.getActionPerTurn(); ++i)
                     {
@@ -137,7 +116,7 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self, int turnNo) -> void
+                [](Enemy& self, [[maybe_unused]] Context& context) -> void
                 {
                     for(int i {0}; i < self.getActionPerTurn(); ++i)
                     {
@@ -146,67 +125,7 @@ class EnemyDatabase
                 }
             }
         );
-        m_enemyDatabase.emplace(
-            Key::Enemy::MemLeech,
-            Enemy{
-
-                EnemyInfo{
-                    .name = Key::Enemy::MemLeech,
-                    .hp = 100,
-                    .atk = 10,
-                    .actionPerTurn = 5,
-                },
-
-                [](Enemy& self, int turnNo) -> void
-                {
-                    for(int i {0}; i < self.getActionPerTurn(); ++i)
-                    {
-
-                    }
-                }
-            }
-        );
-        m_enemyDatabase.emplace(
-            Key::Enemy::StarTick,
-            Enemy{
-
-                EnemyInfo{
-                    .name = Key::Enemy::StarTick,
-                    .hp = 100,
-                    .atk = 10,
-                    .actionPerTurn = 5,
-                },
-
-                [](Enemy& self, int turnNo) -> void
-                {
-                    for(int i {0}; i < self.getActionPerTurn(); ++i)
-                    {
-
-                    }
-                }
-            }
-        );
-        m_enemyDatabase.emplace(
-            Key::Enemy::PointBeetle,
-            Enemy{
-
-                EnemyInfo{
-                    .name = Key::Enemy::PointBeetle,
-                    .hp = 100,
-                    .atk = 10,
-                    .actionPerTurn = 5,
-                },
-
-                [](Enemy& self, int turnNo) -> void
-                {
-                    for(int i {0}; i < self.getActionPerTurn(); ++i)
-                    {
-
-                    }
-                }
-            }
-        );
-
+        
         //Cpp-Chan
         m_enemyDatabase.emplace(
             Key::Enemy::CppChan,
@@ -219,7 +138,7 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self, int turnNo) -> void
+                [](Enemy& self, [[maybe_unused]] Context& context) -> void
                 {
                     for(int i {0}; i < self.getActionPerTurn(); ++i)
                     {
@@ -240,7 +159,7 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self, int turnNo) -> void
+                [](Enemy& self, [[maybe_unused]] Context& context) -> void
                 {
                     for(int i {0}; i < self.getActionPerTurn(); ++i)
                     {
@@ -249,49 +168,5 @@ class EnemyDatabase
                 }
             }
         );
-
-
-        m_enemyDatabase.emplace(
-            Key::Enemy::RaiiFly,
-            Enemy{
-
-                EnemyInfo{
-                    .name = Key::Enemy::RaiiFly,
-                    .hp = 100,
-                    .atk = 10,
-                    .actionPerTurn = 5,
-                },
-
-                [](Enemy& self, int turnNo) -> void
-                {
-                    for(int i {0}; i < self.getActionPerTurn(); ++i)
-                    {
-
-                    }
-                }
-            }
-        );
-
-        m_enemyDatabase.emplace(
-            Key::Enemy::TempTula,
-            Enemy{
-
-                EnemyInfo{
-                    .name = Key::Enemy::TempTula,
-                    .hp = 100,
-                    .atk = 10,
-                    .actionPerTurn = 5,
-                },
-
-                [](Enemy& self, int turnNo) -> void
-                {
-                    for(int i {0}; i < self.getActionPerTurn(); ++i)
-                    {
-
-                    }
-                }
-            }
-        );
-
     }
 };

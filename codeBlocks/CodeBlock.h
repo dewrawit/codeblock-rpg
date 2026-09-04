@@ -67,7 +67,7 @@ class CodeBlock
         return out;
     }
 
-    BlockValue run(Context& context) const
+    BlockValue run(Context&) const
     {
         return std::monostate{};
     }

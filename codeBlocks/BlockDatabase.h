@@ -140,7 +140,6 @@ class BlockDatabase
             )
         );
 
-        /* Hevent implement function yet
         m_blockDatabase.emplace(
             Key::Block::Guard,
             std::make_unique<NoArgBlock>(
@@ -150,7 +149,8 @@ class BlockDatabase
                 "Guard",
                 [](Context& context) -> CodeBlock::BlockValue
                 {
-
+                    context.getPlayer().guard();
+                    return std::monostate{};
                 }
             )
         );
@@ -164,7 +164,8 @@ class BlockDatabase
                 "Parry",
                 [](Context& context) -> CodeBlock::BlockValue
                 {
-
+                    context.getPlayer().superGuard();
+                    return std::monostate{};
                 }
             )
         );
@@ -178,10 +179,11 @@ class BlockDatabase
                 "Counter",
                 [](Context& context) -> CodeBlock::BlockValue
                 {
-
+                    context.getPlayer().counter();
+                    return std::monostate{};
                 }
             )
         );
-        */        
+               
     }
 };

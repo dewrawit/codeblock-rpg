@@ -49,8 +49,8 @@ namespace Game
   
         while(!stage.cleared())
         {
-            Player& player { gameState.getContext().getPlayer() };
-            Enemy& enemy { gameState.getContext().getStage().getCurrentEnemy() };
+            //Player& player { gameState.getContext().getPlayer() };
+            //Enemy& enemy { gameState.getContext().getStage().getCurrentEnemy() };
 
             if(enterBattle(gameState.getContext()) == win)
             {
@@ -162,6 +162,7 @@ namespace Game
 
             //Player do thier shit
             player.getIDE()[i]->run(context);
+            enemy.resetGuard(); //Guard will only last for next action
 
             //if enemy dies, return
             if(enemy.isDead() || player.isDead())
@@ -169,6 +170,7 @@ namespace Game
 
             //Enemy do thier shit
             enemy.takeTurn(context);
+            player.resetGuard();
 
             //if player dies, return
             if(enemy.isDead() || player.isDead())
