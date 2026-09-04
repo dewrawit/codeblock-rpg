@@ -52,7 +52,7 @@ namespace Game
             Player& player { gameState.getContext().getPlayer() };
             Enemy& enemy { gameState.getContext().getStage().getCurrentEnemy() };
 
-            if(enterBattle(player, enemy) == win)
+            if(enterBattle(gameState.getContext()) == win)
             {
                 stage.popEnemyFromQueue();
             }
@@ -62,8 +62,12 @@ namespace Game
             }
         }
     }
-    bool enterBattle(Player& player, Enemy& enemy)
+    bool enterBattle(Context& context)
     {        
+        context.resetTurnAndActionNumber();
+
+        Player& player { context.getPlayer() };
+        Enemy& enemy { context.getActiveEnemy() };
 
         //Clear any old vector content, resize so its size same as actionPerTurn of enemy
         player.clearAndResizeIDE(static_cast<std::size_t>(enemy.getActionPerTurn()));
@@ -78,17 +82,22 @@ namespace Game
 
         while(player.isAlive() && enemy.isAlive()) //For each turn
         {
+            std::println(">>Turn {}<<", context.getTurnNumber());
             //Every New turn
+            context.resetActionNumber();
             player.clearIDE();
             codeBlockPool.fillRandomBlocks();
             codeBlockPool.shufflePool();
+
             //TBD
             //make sure the generation algorithm gave at least x block in each block type
             //(Number/Var, Fight action, operator etc.) 
             
             playerEditIDEPhase(player, codeBlockPool);
             
-            //For each line, player act the code first, follow by enemy (preset behavior)
+            runCodePhase(context);
+
+            context.incrementTurn();
         }
         assert(false && "Just testing");
         return player.isAlive();
@@ -120,7 +129,7 @@ namespace Game
             };
 
             if(blockIndex == quitOrCancel)
-                continue;
+                return;
 
             //unique_ptr is an exception when move: 
             //the old owner guaranteed to be nullptr, we're safe.
@@ -136,6 +145,34 @@ namespace Game
             {
                 std::swap(targetIDEBlock, selectedPoolBlock);
             }
+        }
+    }
+    void runCodePhase(Context& context)
+    {
+        Player& player { context.getPlayer() };
+        Enemy& enemy { context.getActiveEnemy() };
+
+        context.resetActionNumber();
+
+        for(auto i {0uz}; i < player.getIDE().size(); ++i)
+        {
+            std::println("Running Code Line: {}", i + 1);
+
+            context.incrementActionNumber();
+
+            //Player do thier shit
+            player.getIDE()[i]->run(context);
+
+            //if enemy dies, return
+            if(enemy.isDead() || player.isDead())
+                return;
+
+            //Enemy do thier shit
+            enemy.takeTurn(context);
+
+            //if player dies, return
+            if(enemy.isDead() || player.isDead())
+                return;
         }
     }
 }

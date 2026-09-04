@@ -17,6 +17,11 @@ class NoArgBlock : public CodeBlock
     {
         return std::make_unique<NoArgBlock>(*this);
     }
+
+    BlockValue run(Context& context) const
+    {
+        return m_func(context);
+    }
 };
 
 class OneIntBlock : public CodeBlock

@@ -4,10 +4,12 @@
 #include <string>
 #include <functional>
 
+class Context;
+
 class Enemy : public Character
 {
     private:
-    using BehaviorFunc = std::function<void(Enemy&)>;
+    using BehaviorFunc = std::function<void(Enemy&, Context&)>;
 
     int m_actionPerTurn {};
     BehaviorFunc m_behavior {};
@@ -23,9 +25,9 @@ class Enemy : public Character
     int getActionPerTurn() const { return m_actionPerTurn; }
     bool isDefeated() const { return m_defeated; }
 
-    void takeTurn()
+    void takeTurn(Context& context)
     {
-        m_behavior(*this);
+        m_behavior(*this, context);
     }
     BehaviorFunc getBehavior() const { return m_behavior; }
 };

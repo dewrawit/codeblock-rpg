@@ -13,6 +13,7 @@ namespace Game
     Player createBasePlayer();
     int stageSelect(const GameState& gameState);
     void playStage(GameState& gameState);
-    bool enterBattle(Player& player, Enemy& enemy);
+    bool enterBattle(Context& context);
     void playerEditIDEPhase(Player& player, CodeBlockPool& codeBlockPool);
+    void runCodePhase(Context& context);
 }

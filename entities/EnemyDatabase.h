@@ -34,7 +34,7 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self) -> void
+                [](Enemy& self, int turnNo) -> void
                 {
                     for(int i {0}; i < self.getActionPerTurn(); ++i)
                     {
@@ -56,12 +56,9 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self) -> void
+                [](Enemy& self, int turnNo) -> void
                 {
-                    for(int i {0}; i < self.getActionPerTurn(); ++i)
-                    {
-                        
-                    }
+                   
                 }  
             }
         );
@@ -77,7 +74,7 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self) -> void
+                [](Enemy& self, int turnNo) -> void
                 {
                     for(int i {0}; i < self.getActionPerTurn(); ++i)
                     {
@@ -98,7 +95,7 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self) -> void
+                [](Enemy& self, int turnNo) -> void
                 {
                     for(int i {0}; i < self.getActionPerTurn(); ++i)
                     {
@@ -120,7 +117,7 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self) -> void
+                [](Enemy& self, int turnNo) -> void
                 {
                     for(int i {0}; i < self.getActionPerTurn(); ++i)
                     {
@@ -140,7 +137,7 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self) -> void
+                [](Enemy& self, int turnNo) -> void
                 {
                     for(int i {0}; i < self.getActionPerTurn(); ++i)
                     {
@@ -160,7 +157,7 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self) -> void
+                [](Enemy& self, int turnNo) -> void
                 {
                     for(int i {0}; i < self.getActionPerTurn(); ++i)
                     {
@@ -180,7 +177,7 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self) -> void
+                [](Enemy& self, int turnNo) -> void
                 {
                     for(int i {0}; i < self.getActionPerTurn(); ++i)
                     {
@@ -200,7 +197,7 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self) -> void
+                [](Enemy& self, int turnNo) -> void
                 {
                     for(int i {0}; i < self.getActionPerTurn(); ++i)
                     {
@@ -222,7 +219,7 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self) -> void
+                [](Enemy& self, int turnNo) -> void
                 {
                     for(int i {0}; i < self.getActionPerTurn(); ++i)
                     {
@@ -243,7 +240,7 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self) -> void
+                [](Enemy& self, int turnNo) -> void
                 {
                     for(int i {0}; i < self.getActionPerTurn(); ++i)
                     {
@@ -265,7 +262,7 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self) -> void
+                [](Enemy& self, int turnNo) -> void
                 {
                     for(int i {0}; i < self.getActionPerTurn(); ++i)
                     {
@@ -286,7 +283,7 @@ class EnemyDatabase
                     .actionPerTurn = 5,
                 },
 
-                [](Enemy& self) -> void
+                [](Enemy& self, int turnNo) -> void
                 {
                     for(int i {0}; i < self.getActionPerTurn(); ++i)
                     {

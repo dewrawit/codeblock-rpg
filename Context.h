@@ -15,6 +15,9 @@ class Context
 
     Player* m_caller{ nullptr }; //Who owns that code
 
+    int m_turnNumber { 0 };
+    int m_actionNumber { 0 };
+
     public:
     Context() = default;
     Context(Player& player) //Context can modify Player, so parameter must be non const
@@ -33,5 +36,31 @@ class Context
     void setStage(Stage& stage) { m_stage = &stage; }
     const Player& getCaller() const { return *m_caller; }
     Player& getCaller() { return *m_caller; }
+    
+    int getTurnNumber() const
+    {
+        return m_turnNumber;
+    }
+    int getActionNumber() const
+    {
+        return m_actionNumber;
+    }
+    void resetTurnAndActionNumber()
+    {
+        m_turnNumber = 0;
+        m_actionNumber = 0;
+    }
+    void resetActionNumber()
+    {
+        m_actionNumber = 0;
+    }
+    void incrementTurn()
+    {
+        ++m_turnNumber;
+    }
+    void incrementActionNumber()
+    {
+        ++m_actionNumber;
+    }
 
 };

@@ -66,4 +66,9 @@ class CodeBlock
         out << "[ ( " << cb.rarityToStr() << " ) " << cb.m_displayText << " ]";
         return out;
     }
+
+    BlockValue run(Context& context) const
+    {
+        return std::monostate{};
+    }
 };
