@@ -67,8 +67,9 @@ class CodeBlock
         return out;
     }
 
-    BlockValue run(Context&) const
+    virtual BlockValue run(Context&) const
     {
+        assert(false && "Running Base CodeBlock run function.");
         return std::monostate{};
     }
 };

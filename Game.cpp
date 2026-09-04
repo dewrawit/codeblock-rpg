@@ -6,6 +6,7 @@
 #include <string_view>
 #include <print>
 #include <format>
+#include <iostream>
 #include "codeBlocks/CodeBlockPool.h"
 #include "codeBlocks/CodeBlock.h"
 
@@ -82,6 +83,8 @@ namespace Game
 
         while(player.isAlive() && enemy.isAlive()) //For each turn
         {
+            context.incrementTurn();
+
             std::println(">>Turn {}<<", context.getTurnNumber());
             //Every New turn
             context.resetActionNumber();
@@ -89,15 +92,13 @@ namespace Game
             codeBlockPool.fillRandomBlocks();
             codeBlockPool.shufflePool();
 
-            //TBD
-            //make sure the generation algorithm gave at least x block in each block type
-            //(Number/Var, Fight action, operator etc.) 
+            std::println("Player: {} HP\n Enemy: {} HP", player.getHp(), enemy.getHp());
             
             playerEditIDEPhase(player, codeBlockPool);
             
             runCodePhase(context);
 
-            context.incrementTurn();
+            
         }
         assert(false && "Just testing");
         return player.isAlive();
@@ -161,10 +162,21 @@ namespace Game
             context.incrementActionNumber();
 
             //Player do thier shit
-            player.getIDE()[i]->run(context);
+            auto& ideBlock { player.getIDE()[i] };
+
+            if(ideBlock != nullptr)
+            {
+                //std::cout << *ideBlock << std::endl;
+                ideBlock->run(context);
+            } 
+            else
+            {
+                std::println("Empty line, action skipped!");
+            }
+                
+
             enemy.resetGuard(); //Guard will only last for next action
 
-            //if enemy dies, return
             if(enemy.isDead() || player.isDead())
                 return;
 
@@ -172,7 +184,6 @@ namespace Game
             enemy.takeTurn(context);
             player.resetGuard();
 
-            //if player dies, return
             if(enemy.isDead() || player.isDead())
                 return;
         }

@@ -18,7 +18,7 @@ class NoArgBlock : public CodeBlock
         return std::make_unique<NoArgBlock>(*this);
     }
 
-    BlockValue run(Context& context) const
+    BlockValue run(Context& context) const override
     {
         return m_func(context);
     }
