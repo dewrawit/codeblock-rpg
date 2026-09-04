@@ -25,16 +25,33 @@ namespace Game
     {
         std::println("Playing: Stage Select Theme.\n");
 
-        int iteration { 1 };
-        for(const auto& stage : gameState.getStageVector())
+        while(true)
         {
-            std::println("{}. {}", iteration, stage.getBoss().getName());
-            ++iteration;
-        }
+            int iteration { 1 };
+            for(const auto& stage : gameState.getStageVector())
+            {
+                std::println("{}. {} {}"
+                    ,iteration
+                    ,stage.getBoss().getName()
+                    ,(stage.cleared() ? "( Cleared )" : ""));
 
-        return Utils::getInt(
-            "Pick Stage Number > ", 1, static_cast<int>(gameState.getStageVector().size())
-        );
+                ++iteration;
+            }
+
+            int pick { Utils::getInt(
+                "Pick Stage Number > ", 1, static_cast<int>(gameState.getStageVector().size()) 
+            )};
+
+            int stageIndex { pick - 1 };
+
+            if(gameState.getStageVector()[static_cast<std::size_t>(stageIndex)].cleared())
+            {
+                std::println("Already cleared this stage.");
+            }
+
+            return pick;
+        }
+        
     }
     void playStage(GameState& gameState)
     {
@@ -53,8 +70,11 @@ namespace Game
             //Player& player { gameState.getContext().getPlayer() };
             //Enemy& enemy { gameState.getContext().getStage().getCurrentEnemy() };
 
+            gameState.getPlayer().resetToBaseStat();
+            
             if(enterBattle(gameState.getContext()) == win)
             {
+                std::println("{} Defeated!",stage.getCurrentEnemy().getName());
                 stage.popEnemyFromQueue();
             }
             else
@@ -62,6 +82,8 @@ namespace Game
                 assert(false && "TBD! Player lose (maybe a life system like megaman later)");
             }
         }
+
+        std::println("{} Stage Cleared!", stage.getStageKey());
     }
     bool enterBattle(Context& context)
     {        
@@ -86,9 +108,11 @@ namespace Game
             context.incrementTurn();
 
             std::println(">>Turn {}<<", context.getTurnNumber());
+
             //Every New turn
             context.resetActionNumber();
             player.clearIDE();
+            codeBlockPool.clearAndResetPool();
             codeBlockPool.fillRandomBlocks();
             codeBlockPool.shufflePool();
 
@@ -97,10 +121,8 @@ namespace Game
             playerEditIDEPhase(player, codeBlockPool);
             
             runCodePhase(context);
-
-            
         }
-        assert(false && "Just testing");
+        //assert(false && "Just testing");
         return player.isAlive();
     }
     void playerEditIDEPhase(Player& player, CodeBlockPool& codeBlockPool)

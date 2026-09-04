@@ -55,7 +55,7 @@ class CodeBlock
             default: assert(false && "Cannot convert invalid rarity to string");
         }
     }
-
+    
     virtual std::unique_ptr<CodeBlock> clone() const
     {
         return std::make_unique<CodeBlock>(*this);

@@ -21,21 +21,30 @@ class CodeBlockPool
     >;
 
     RarityCatagorizedPool m_allBlocks {};
-
+    std::size_t m_startingSize {};
     std::vector<std::unique_ptr<CodeBlock>> m_pool {};
 
 
     public:
     using SV = std::string_view;
 
-    CodeBlockPool(ST size)
+    CodeBlockPool(ST size) : m_startingSize { size }
     {
         m_pool.resize(size);
 
         BlockDatabase blockDatabase {};
         receiveAllBlocksInfo(blockDatabase);
     }
+    void clearAndResetPool()
+    {   
+        m_pool.clear();
+        m_pool.resize(m_startingSize);
 
+        for(auto& blockPtr : m_pool)
+        {
+            blockPtr = nullptr;
+        }
+    }
     std::unique_ptr<CodeBlock>& operator[](std::size_t index)
     {
         return m_pool[index];

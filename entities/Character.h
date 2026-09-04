@@ -12,7 +12,9 @@ class Character
 
     std::string m_name{};
     int m_hp{};
+    int m_baseHp{};
     int m_atk{};
+    int m_baseAtk{};
     GuardType m_guardType{};
     bool m_guarded{ false };
 
@@ -20,16 +22,23 @@ class Character
     constexpr Character() = default;
     constexpr Character(SV name, int hp, int atk)
         : m_name{ name }
-        , m_hp{ hp }
-        , m_atk{ atk }
+        , m_hp{ hp }, m_baseHp{ hp }
+        , m_atk{ atk }, m_baseAtk{ atk }
     { }
 
     const std::string& getName() const { return m_name; }
     int getHp() const { return m_hp; }
     int getAtk() const { return m_atk; }
+    int getBaseHp() const { return m_baseHp; }
+    int getBaseAtk() const { return m_baseAtk; }
     bool isAlive() const { return m_hp > 0; }
     bool isDead() const { return !isAlive(); }
     bool isGuarding() const { return m_guarded; }
+    void resetToBaseStat()
+    {
+        m_hp = m_baseHp;
+        m_atk = m_baseAtk;
+    }
     int calculateDamageTaken(int baseAtk, Character& attacker) {  
 
         if(!isGuarding())
