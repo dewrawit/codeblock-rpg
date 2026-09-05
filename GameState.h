@@ -34,9 +34,13 @@ class GameState
     void setupStageContext(int select);
     void restoreStage(StageIndex stageIndex);
 
-
-    
-
-
-
+    bool gameWon() const
+    {
+        for(const auto& stage : m_stages)
+        {
+            if(!stage.cleared())
+                return false;
+        }
+        return true;
+    }
 };

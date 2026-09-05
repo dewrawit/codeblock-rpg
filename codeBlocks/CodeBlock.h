@@ -18,15 +18,19 @@ class CodeBlock
 
     using NoArgFunction = std::function<BlockValue(Context&)>;
     using OneIntFunction = std::function<BlockValue(Context&,int)>;
-    using PlayerIntFunction = std::function<BlockValue(Context&, Player&, int)>;
-    using TwoIntFunction = std::function<BlockValue(Context&, int, int)>;
+
+    //Making these block in terminal would cause pain when getting user input...
+    //In godot we'll just drag the block so we'll omit these block in the prototype
+    //using PlayerIntFunction = std::function<BlockValue(Context&, Player&, int)>;
+    //using TwoIntFunction = std::function<BlockValue(Context&, int, int)>;
+
     using SV = std::string_view;
 
     enum class Type { empty, noArgs, oneInt, playerInt, twoInt };
     enum class Rarity { common = 0, rare = 1, epic = 2, maxRarityCount = 3};
     enum class OutputType { none, integer };
 
-    private:
+    protected:
     Type m_type{ Type::empty };
     Rarity m_rarity{};
     OutputType m_outputType{};
@@ -63,8 +67,14 @@ class CodeBlock
 
     friend std::ostream& operator<<(std::ostream& out, const CodeBlock& cb)
     {
-        out << "[ ( " << cb.rarityToStr() << " ) " << cb.m_displayText << " ]";
+        cb.print(out);
         return out;
+    }
+
+    virtual void print(std::ostream& out) const
+    {
+        out << "[ (" << rarityToStr() << ") "
+        << m_displayText << " ]";
     }
 
     virtual BlockValue run(Context&) const

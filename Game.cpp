@@ -53,7 +53,7 @@ namespace Game
         }
         
     }
-    void playStage(GameState& gameState)
+    bool playStage(GameState& gameState)
     {
         std::println("------------------------------------------\n");
 
@@ -79,11 +79,13 @@ namespace Game
             }
             else
             {
-                assert(false && "TBD! Player lose (maybe a life system like megaman later)");
+                std::println("You died! Level failed!");
+                return false;
             }
         }
 
         std::println("{} Stage Cleared!", stage.getStageKey());
+        return true;
     }
     bool enterBattle(Context& context)
     {        
@@ -116,7 +118,8 @@ namespace Game
             codeBlockPool.fillRandomBlocks();
             codeBlockPool.shufflePool();
 
-            std::println("Player: {} HP\n Enemy: {} HP", player.getHp(), enemy.getHp());
+            std::println("Player: {} HP, {} ATK\n Enemy: {} HP, {} ATK", 
+                player.getHp(), player.getAtk(), enemy.getHp(), enemy.getAtk());
             
             playerEditIDEPhase(player, codeBlockPool);
             
@@ -153,6 +156,8 @@ namespace Game
             if(blockIndex == quitOrCancel)
                 continue;
 
+            
+
             //unique_ptr is an exception when move: 
             //the old owner guaranteed to be nullptr, we're safe.
             auto& targetIDEBlock { player.getIDE()[static_cast<ST>(rowIndex)] };
@@ -162,10 +167,30 @@ namespace Game
             {
                 targetIDEBlock = std::move(selectedPoolBlock);
                 codeBlockPool.removeBlockAtIndex(static_cast<ST>(blockIndex));
+                //targetIDEBlock gets ownership of the block in the pool
             } 
             else //aready occupied, replace that row with new block and return it back to pool
             {
                 std::swap(targetIDEBlock, selectedPoolBlock);
+                //targetIDEBlock will now point to the block in the pool we selected
+            }
+
+            //Check if it needs arguments
+            if(targetIDEBlock->getType() == CodeBlock::Type::oneInt)
+            {
+                //If fails it will throw bad cast (it shouldn't fail)
+                auto& block = dynamic_cast<OneIntBlock&>(*targetIDEBlock);
+
+                int argIndex {
+                    Utils::getInt("Select Block Number as argument: ",
+                        1, static_cast<int>(codeBlockPool.getPoolSize()) - 1)
+                };
+
+                auto& selectedArgBlock { codeBlockPool[static_cast<ST>(argIndex)] };
+                block.setArgBlock(selectedArgBlock); 
+
+                //Because after moving, that index becomes nullptr
+                codeBlockPool.removeBlockAtIndex(static_cast<ST>(argIndex));               
             }
         }
     }
@@ -195,7 +220,6 @@ namespace Game
                 std::println("Empty line, action skipped!");
             }
                 
-
             enemy.resetGuard(); //Guard will only last for next action
 
             if(enemy.isDead() || player.isDead())
