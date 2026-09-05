@@ -63,13 +63,19 @@ class Character
     {
         std::println("{} Attacks!", m_name);
 
-        target.m_hp -= target.calculateDamageTaken(getAtk(), *this);
+        int damage { target.calculateDamageTaken(getAtk(), *this) };
+        target.m_hp -= damage;
+
+        std::println("{} took {} damage!", target.getName(), damage);
     }
     void heavyAttack(Character& target)
     {
         std::println("{} Attacks really hard!", m_name);
 
-        target.m_hp -= target.calculateDamageTaken(2 * getAtk(), *this);
+        int damage { target.calculateDamageTaken(2 * getAtk(), *this) };
+        target.m_hp -= damage;
+
+        std::println("{} took {} damage!", target.getName(), damage);
     }
     void heal(int amount)
     {

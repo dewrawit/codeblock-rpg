@@ -183,10 +183,11 @@ namespace Game
 
                 int argIndex {
                     Utils::getInt("Select Block Number as argument: ",
-                        1, static_cast<int>(codeBlockPool.getPoolSize()) - 1)
+                        1, static_cast<int>(codeBlockPool.getPoolSize())) - 1
                 };
 
                 auto& selectedArgBlock { codeBlockPool[static_cast<ST>(argIndex)] };
+                
                 block.setArgBlock(selectedArgBlock); 
 
                 //Because after moving, that index becomes nullptr
