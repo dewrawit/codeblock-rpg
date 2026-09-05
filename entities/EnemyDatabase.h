@@ -85,88 +85,88 @@ class EnemyDatabase
         );
 
         //C-Chan
-        m_enemyDatabase.emplace(
-            Key::Enemy::CChan, 
-            Enemy{
+        // m_enemyDatabase.emplace(
+        //     Key::Enemy::CChan, 
+        //     Enemy{
 
-                EnemyInfo{
-                    .name = Key::Enemy::CChan,
-                    .hp = 100,
-                    .atk = 10,
-                    .actionPerTurn = 5,
-                },
+        //         EnemyInfo{
+        //             .name = Key::Enemy::CChan,
+        //             .hp = 100,
+        //             .atk = 10,
+        //             .actionPerTurn = 5,
+        //         },
 
-                [](Enemy& self, [[maybe_unused]] Context& context) -> void
-                {
-                    for(int i {0}; i < self.getActionPerTurn(); ++i)
-                    {
+        //         [](Enemy& self, [[maybe_unused]] Context& context) -> void
+        //         {
+        //             for(int i {0}; i < self.getActionPerTurn(); ++i)
+        //             {
                         
-                    }
-                }  
-            }
-        );
-        m_enemyDatabase.emplace(
-            Key::Enemy::ArrayPillar,
-            Enemy{
+        //             }
+        //         }  
+        //     }
+        // );
+        // m_enemyDatabase.emplace(
+        //     Key::Enemy::ArrayPillar,
+        //     Enemy{
 
-                EnemyInfo{
-                    .name = Key::Enemy::ArrayPillar,
-                    .hp = 100,
-                    .atk = 10,
-                    .actionPerTurn = 5,
-                },
+        //         EnemyInfo{
+        //             .name = Key::Enemy::ArrayPillar,
+        //             .hp = 100,
+        //             .atk = 10,
+        //             .actionPerTurn = 5,
+        //         },
 
-                [](Enemy& self, [[maybe_unused]] Context& context) -> void
-                {
-                    for(int i {0}; i < self.getActionPerTurn(); ++i)
-                    {
+        //         [](Enemy& self, [[maybe_unused]] Context& context) -> void
+        //         {
+        //             for(int i {0}; i < self.getActionPerTurn(); ++i)
+        //             {
 
-                    }
-                }
-            }
-        );
+        //             }
+        //         }
+        //     }
+        // );
         
-        //Cpp-Chan
-        m_enemyDatabase.emplace(
-            Key::Enemy::CppChan,
-            Enemy{
+        // //Cpp-Chan
+        // m_enemyDatabase.emplace(
+        //     Key::Enemy::CppChan,
+        //     Enemy{
 
-                EnemyInfo{
-                    .name = Key::Enemy::CppChan,
-                    .hp = 100,
-                    .atk = 10,
-                    .actionPerTurn = 5,
-                },
+        //         EnemyInfo{
+        //             .name = Key::Enemy::CppChan,
+        //             .hp = 100,
+        //             .atk = 10,
+        //             .actionPerTurn = 5,
+        //         },
 
-                [](Enemy& self, [[maybe_unused]] Context& context) -> void
-                {
-                    for(int i {0}; i < self.getActionPerTurn(); ++i)
-                    {
+        //         [](Enemy& self, [[maybe_unused]] Context& context) -> void
+        //         {
+        //             for(int i {0}; i < self.getActionPerTurn(); ++i)
+        //             {
 
-                    }
-                }
-            }
-        );
+        //             }
+        //         }
+        //     }
+        // );
 
-        m_enemyDatabase.emplace(
-            Key::Enemy::SegFlea,
-            Enemy{
+        // m_enemyDatabase.emplace(
+        //     Key::Enemy::SegFlea,
+        //     Enemy{
 
-                EnemyInfo{
-                    .name = Key::Enemy::SegFlea,
-                    .hp = 100,
-                    .atk = 10,
-                    .actionPerTurn = 5,
-                },
+        //         EnemyInfo{
+        //             .name = Key::Enemy::SegFlea,
+        //             .hp = 100,
+        //             .atk = 10,
+        //             .actionPerTurn = 5,
+        //         },
 
-                [](Enemy& self, [[maybe_unused]] Context& context) -> void
-                {
-                    for(int i {0}; i < self.getActionPerTurn(); ++i)
-                    {
+        //         [](Enemy& self, [[maybe_unused]] Context& context) -> void
+        //         {
+        //             for(int i {0}; i < self.getActionPerTurn(); ++i)
+        //             {
 
-                    }
-                }
-            }
-        );
+        //             }
+        //         }
+        //     }
+        // );
     }
 };

@@ -14,15 +14,14 @@ namespace Key
         // constexpr S YellowSnake {"Yellow Snake"};
         // constexpr S PyAConda {"PyAconda"};
 
-        
-        constexpr S CChan {"C Chan"};
-        constexpr S ArrayPillar {"ArrayPillar"};
-        // constexpr S StarTick {"StarTick"};
-        // constexpr S PointBeetle {"PointBeetle"};
-        // constexpr S MemLeech {"MemLeech"};
+        // constexpr S CChan {"C Chan"};
+        // constexpr S ArrayPillar {"ArrayPillar"};
+        // // constexpr S StarTick {"StarTick"};
+        // // constexpr S PointBeetle {"PointBeetle"};
+        // // constexpr S MemLeech {"MemLeech"};
 
-        constexpr S CppChan {"Cpp Chan"};
-        constexpr S SegFlea {"SegFlea"};
+        // constexpr S CppChan {"Cpp Chan"};
+        // constexpr S SegFlea {"SegFlea"};
         // constexpr S RaiiFly {"RaiiFly"};
         // constexpr S TempTula {"TempTula"};
 
@@ -31,9 +30,9 @@ namespace Key
     {
         constexpr S Python {"Python-Stage"};
 
-        constexpr S C {"C-Stage"};
+        // constexpr S C {"C-Stage"};
 
-        constexpr S Cpp {"Cpp-Stage"};
+        // constexpr S Cpp {"Cpp-Stage"};
     }
 
     namespace Block
@@ -49,5 +48,9 @@ namespace Key
         constexpr S Guard {"Guard"};
         constexpr S Parry {"Parry"};
         constexpr S Counter {"Counter"};
+
+        //One ints
+        constexpr S Heal {"Heal"};
+        constexpr S BuffAttack {"Buff"};
     }
 }

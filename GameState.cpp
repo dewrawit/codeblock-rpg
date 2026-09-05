@@ -25,11 +25,11 @@ GameState::GameState(Player& player)
     m_stages[static_cast<ST>(StageIndex::python)] 
     = m_stageDatabase.createStage(Key::Stage::Python);
 
-    m_stages[static_cast<ST>(StageIndex::c)]
-    = m_stageDatabase.createStage(Key::Stage::C);
+    // m_stages[static_cast<ST>(StageIndex::c)]
+    // = m_stageDatabase.createStage(Key::Stage::C);
 
-    m_stages[static_cast<ST>(StageIndex::cpp)]
-    = m_stageDatabase.createStage(Key::Stage::Cpp);
+    // m_stages[static_cast<ST>(StageIndex::cpp)]
+    // = m_stageDatabase.createStage(Key::Stage::Cpp);
 } 
 void GameState::setupStageContext(int select)
 {
@@ -51,14 +51,14 @@ void GameState::restoreStage(StageIndex stageIndex)
             m_stages[static_cast<ST>(StageIndex::python)] 
             = m_stageDatabase.createStage(Key::Stage::Python);
             break;
-        case StageIndex::c:
-            m_stages[static_cast<ST>(StageIndex::c)]
-            = m_stageDatabase.createStage(Key::Stage::C);
-            break;
-        case StageIndex::cpp:
-            m_stages[static_cast<ST>(StageIndex::cpp)]
-            = m_stageDatabase.createStage(Key::Stage::Cpp);
-            break;
+        // case StageIndex::c:
+        //     m_stages[static_cast<ST>(StageIndex::c)]
+        //     = m_stageDatabase.createStage(Key::Stage::C);
+        //     break;
+        // case StageIndex::cpp:
+        //     m_stages[static_cast<ST>(StageIndex::cpp)]
+        //     = m_stageDatabase.createStage(Key::Stage::Cpp);
+        //     break;
         default:
             assert(false && "Restore stage received invalid stage index.");
     }

@@ -9,7 +9,7 @@
 class GameState
 {
     public:
-    enum class StageIndex { python, c, cpp, maxStages };
+    enum class StageIndex { python, /*c, cpp,*/ maxStages };
 
     private:
     EnemyDatabase m_enemyDatabase {};

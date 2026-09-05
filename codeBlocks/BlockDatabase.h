@@ -184,6 +184,35 @@ class BlockDatabase
                 }
             )
         );
-               
+        
+        m_blockDatabase.emplace(
+            Key::Block::Heal,
+            std::make_unique<OneIntBlock>(
+                CodeBlock::Type::oneInt,
+                CodeBlock::Rarity::rare,
+                CodeBlock::OutputType::none,
+                "Heal",
+                [](Context& context, int amount) -> CodeBlock::BlockValue
+                {
+                    context.getPlayer().heal(amount);
+                    return std::monostate{};
+                }
+            )
+        );
+
+        m_blockDatabase.emplace(
+            Key::Block::BuffAttack,
+            std::make_unique<OneIntBlock>(
+                CodeBlock::Type::oneInt,
+                CodeBlock::Rarity::rare,
+                CodeBlock::OutputType::none,
+                "BuffAttack",
+                [](Context& context, int amount) -> CodeBlock::BlockValue
+                {
+                    context.getPlayer().buffAttack(amount);
+                    return std::monostate{};
+                }
+            )
+        );
     }
 };

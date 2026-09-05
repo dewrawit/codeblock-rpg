@@ -78,6 +78,11 @@ class Character
         assert(m_hp > 0 && "Cannot heal, aleady dead");
         m_hp += amount;
     }
+    void buffAttack(int amount)
+    {
+        std::println("{} buff attack!", m_name);
+        m_atk += amount;
+    }
     void guard()
     {
         std::println("{} Guards!", m_name);

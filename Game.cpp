@@ -122,7 +122,6 @@ namespace Game
             
             runCodePhase(context);
         }
-        //assert(false && "Just testing");
         return player.isAlive();
     }
     void playerEditIDEPhase(Player& player, CodeBlockPool& codeBlockPool)
@@ -130,7 +129,6 @@ namespace Game
         using ST = std::size_t;
 
         constexpr int quitOrCancel { -1 };
-        //TBD, gave player option to stop editing
 
         bool cont { true };
         while(cont)
@@ -151,8 +149,9 @@ namespace Game
                     static_cast<int>(codeBlockPool.getPoolSize())) - 1
             };
 
+            //Back to selecting row
             if(blockIndex == quitOrCancel)
-                return;
+                continue;
 
             //unique_ptr is an exception when move: 
             //the old owner guaranteed to be nullptr, we're safe.
